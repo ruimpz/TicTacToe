@@ -15,7 +15,7 @@ class Player:
 
 
 def greet():
-    print("Welcome to Tic-Tac-Toe.\nFill in vertical, horizontal or diagonal lines to win.")
+    print("Fill in vertical, horizontal or diagonal lines to win.")
     print("Select the tile with the numbers [1..9]")
     draw_board([0, "1", "2", "3", "4", "5", "6", "7", "8", "9"])
 
@@ -222,27 +222,36 @@ def player_winning_play(board_state, player):
 
 
 def main():
-    greet()
-    player = Player("Player", " ")
-    cpu = Player("Computer", " ")
-    get_sym(player, cpu)
-    board_state = [0, " ", " ", " ", " ", " ", " ", " ", " ", " ",]
-    turn = get_turn()
+    while True:
+        print("\nWelcome to TicTacToe. Press 'S' to start game. To quit, press 'Q'.")
+        key = input()
+        if key.lower() == "s":
 
-#GAMELOOP
-    while check_win(board_state, player, cpu) != 0 and check_win(board_state, player, cpu) != 1 and \
-            check_win(board_state, player, cpu) != 2:
-        game_action(board_state, player, cpu, turn)
-        turn = not turn
-        draw_board(board_state)
+            greet()
+            player = Player("Player", " ")
+            cpu = Player("Computer", " ")
+            get_sym(player, cpu)
+            board_state = [0, " ", " ", " ", " ", " ", " ", " ", " ", " ",]
+            turn = get_turn()
 
-    if check_win(board_state, player, cpu) == 0:
-        print("Congratulation, you win!")
-    elif check_win(board_state, player, cpu) == 1:
-        print("Computer wins.")
-    else:
-        print("It's a tie.")
+        #GAMELOOP
+            while check_win(board_state, player, cpu) != 0 and check_win(board_state, player, cpu) != 1 and \
+                    check_win(board_state, player, cpu) != 2:
+                game_action(board_state, player, cpu, turn)
+                turn = not turn
+                draw_board(board_state)
 
+            if check_win(board_state, player, cpu) == 0:
+                print("Congratulation, you win!")
+            elif check_win(board_state, player, cpu) == 1:
+                print("Computer wins.")
+            else:
+                print("It's a tie.")
+
+        elif key.lower() == "q":
+            break
+        else:
+            print("That's not a valid key.")
 
 if __name__ == '__main__':
     main()
